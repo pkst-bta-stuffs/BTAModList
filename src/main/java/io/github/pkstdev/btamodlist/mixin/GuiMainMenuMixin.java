@@ -1,6 +1,6 @@
 package io.github.pkstdev.btamodlist.mixin;
 
-import io.github.pkstdev.btamodlist.screen.ScreenModList;
+import io.github.pkstdev.btamodlist.screen.list.ScreenModList;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiMainMenu;

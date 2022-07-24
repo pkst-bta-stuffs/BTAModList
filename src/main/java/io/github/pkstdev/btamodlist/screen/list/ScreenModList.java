@@ -1,5 +1,6 @@
-package io.github.pkstdev.btamodlist.screen;
+package io.github.pkstdev.btamodlist.screen.list;
 
+import io.github.pkstdev.btamodlist.screen.info.ScreenModInfo;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiButton;
@@ -23,8 +24,9 @@ public class ScreenModList extends GuiScreen {
     @Override
     public void initGui() {
         StringTranslate i18n = StringTranslate.getInstance();
-        this.controlList.add(new GuiOptionsButton(10000, this.width / 2 - 154, this.height - 48, "Open Mods Folder"));
-        this.controlList.add(new GuiOptionsButton(6, this.width / 2 + 4, this.height - 48, i18n.translateKey("gui.done")));
+        this.controlList.add(new GuiOptionsButton(10000, this.width / 2 - 229, this.height - 48, "Open Mods Folder"));
+        this.controlList.add(new GuiOptionsButton(6, this.width / 2 + 79, this.height - 48, i18n.translateKey("gui.done")));
+        this.controlList.add(new GuiOptionsButton(1919, this.width / 2 - 75, this.height - 48, "More Info"));
         this.modList = new ScreenModListSlot(this);
         this.modList.registerScrollButtons(this.controlList, 10001, 10002);
     }
@@ -40,6 +42,8 @@ public class ScreenModList extends GuiScreen {
                 }
             } else if (button.id == 6) {
                 this.mc.displayGuiScreen(this.parent);
+            } else if (button.id == 1919) {
+                this.mc.displayGuiScreen(new ScreenModInfo(this, modList.getSelectedMod()));
             } else {
                 this.modList.actionPerformed(button);
             }

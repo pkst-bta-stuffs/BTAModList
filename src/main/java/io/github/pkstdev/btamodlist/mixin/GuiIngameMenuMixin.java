@@ -1,6 +1,6 @@
 package io.github.pkstdev.btamodlist.mixin;
 
-import io.github.pkstdev.btamodlist.screen.ScreenModList;
+import io.github.pkstdev.btamodlist.screen.list.ScreenModList;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.src.GuiButton;
 import net.minecraft.src.GuiIngameMenu;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(GuiIngameMenu.class)
+@Mixin(value = GuiIngameMenu.class, remap = false)
 public class GuiIngameMenuMixin extends GuiScreen {
     @Inject(method = "initGui", at = @At("RETURN"))
     public void onInitGui(CallbackInfo ci) {

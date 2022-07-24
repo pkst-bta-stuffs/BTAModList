@@ -1,4 +1,4 @@
-package io.github.pkstdev.btamodlist.screen;
+package io.github.pkstdev.btamodlist.screen.list;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
@@ -13,11 +13,13 @@ import java.util.Collection;
 public class ScreenModListSlot extends GuiSlot {
     private final Collection<ModContainer> mods;
     private final ScreenModList parent;
+    private ModContainer selectedMod;
 
     public ScreenModListSlot(ScreenModList modListScreen) {
         super(Minecraft.getMinecraft(), modListScreen.width, modListScreen.height, 32, modListScreen.height - 51, 36);
         this.mods = FabricLoader.getInstance().getAllMods();
         this.parent = modListScreen;
+        this.selectedMod = new ArrayList<>(mods).get(0);
     }
 
     @Override
@@ -27,11 +29,12 @@ public class ScreenModListSlot extends GuiSlot {
 
     @Override
     protected void elementClicked(int i, boolean b) {
+        this.selectedMod = new ArrayList<>(mods).get(i);
     }
 
     @Override
     protected boolean isSelected(int i) {
-        return false;
+        return this.selectedMod == new ArrayList<>(mods).get(i);
     }
 
     @Override
@@ -47,7 +50,12 @@ public class ScreenModListSlot extends GuiSlot {
         String version = mod.getMetadata().getVersion().getFriendlyString();
         String desc = mod.getMetadata().getDescription();
         this.parent.drawString(textRenderer, name + " - ", (this.parent.width - textRenderer.getStringWidth(name + " - " + version)) / 2, k + 1, 16777215);
-        this.parent.drawString(textRenderer, version, (this.parent.width - textRenderer.getStringWidth(name + " - " + version)) / 2 + textRenderer.getStringWidth(name + " - "), k + 1, 5592405);
+        this.parent.drawString(textRenderer, version,
+                (this.parent.width - textRenderer.getStringWidth(name + " - " + version)) / 2 + textRenderer.getStringWidth(name + " - "), k + 1, 5592405);
         this.parent.drawString(textRenderer, desc, (this.parent.width - textRenderer.getStringWidth(desc)) / 2, k + 12, 8421504);
+    }
+
+    public ModContainer getSelectedMod() {
+        return selectedMod;
     }
 }
